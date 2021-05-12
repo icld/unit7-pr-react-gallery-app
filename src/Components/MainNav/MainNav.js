@@ -3,9 +3,13 @@ import React from 'react';
 import './MainNav.css'
 
 const MainNav = () => (
-    <div>
-        <h1>Main Nav Component</h1>
-    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href='#'>Cats</a></li>
+            <li><a href='#'>Dogs</a></li>
+            <li><a href='#'>Computers</a></li>
+        </ul>
+    </nav>
 
 )
 
