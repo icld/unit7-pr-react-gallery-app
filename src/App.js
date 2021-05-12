@@ -1,19 +1,21 @@
+import React, { Component } from 'react';
 
 
-
-function App() {
-  return (
-    <div className="App">
+// App Components
+import MainNav from './Components/MainNav/MainNav';
 
 
+export default class App extends Component {
+  render() {
+    return (
+      <div className="App" >
 
 
-      <h1> Hello World
-</h1>
+        <MainNav />
 
-
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
-export default App;
+
