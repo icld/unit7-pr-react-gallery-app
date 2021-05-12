@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 // App Components
 import MainNav from './Components/MainNav/MainNav';
 import SearchForm from './Components/SearchForm/SearchForm';
-import PhotoContainer from './Components/PhotoContainer/PhotoContainer'
+import PhotoContainer from './Components/PhotoContainer/PhotoContainer';
+import NotFound from './Components/NotFound/NotFound';
+// import PhotoCard from './Components/PhotoCard/PhotoCard';
 
 
 export default class App extends Component {
@@ -15,6 +17,7 @@ export default class App extends Component {
         <SearchForm />
         <MainNav />
         <PhotoContainer />
+        <NotFound />
 
       </div>
     );
