@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import PhotoCard from '../PhotoCard/PhotoCard'
 import './PhotoContainer.css'
 
-const PhotoContainer = () => (
-    <div>
-        <h1>PhotoContainer Component</h1>
-        <PhotoCard />
+class PhotoContainer extends Component {
+    render() {
+        return (
+            <div className="photo-container">
+                <h2>Results</h2>
+                <ul>
+                    <PhotoCard />
+                </ul>
 
-    </div>
-
-)
+            </div>
+        )
+    }
+}
 
 export default PhotoContainer;
