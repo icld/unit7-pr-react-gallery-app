@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 import apiKey from './Components/config.js'
 
@@ -21,23 +26,33 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ce995fe467446380dae75989cbd87258&tags=cats&per_page=24&format=json&nojsoncallback=1
+    this.performSearch()
+  }
+
+  performSearch(query = 'cats') {
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1
   `)
       .then(response => {
-        this.setState({ photos: response.data.photos })
+        this.setState({ photos: response.data.photos.photo })
       })
       .catch(error => {
         console.log('Error fetching and parsing data', error);
       });
+
   }
 
   render() {
     return (
-      <div className="container" >
-        <SearchForm />
-        <MainNav />
-        <PhotoContainer />
-      </div>
+      <BrowserRouter>
+
+        <div className="container" >
+          <SearchForm onSearch={this.performSearch} />
+          <MainNav />
+          <PhotoContainer data={this.state.photos} />
+        </div>
+
+      </BrowserRouter>
+
     );
   }
 }
