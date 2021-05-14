@@ -8,6 +8,8 @@ const PhotoContainer = props => {
 
     const results = props.data;
     let photos;
+    const title = props.title
+
 
     if (results.length > 0) {
         photos = results.map(photo =>
@@ -17,7 +19,7 @@ const PhotoContainer = props => {
 
     return (
         <div className="photo-container">
-            <h2>Results</h2>
+            <h2>{title}</h2>
             <ul>
                 {photos}
             </ul>

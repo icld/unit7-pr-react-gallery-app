@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './PhotoCard.css'
 
 const PhotoCard = (props) => {
