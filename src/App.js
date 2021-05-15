@@ -98,7 +98,7 @@ export default class App extends Component {
 
         <div className="container" >
           <SearchForm onSearch={this.performSearch} />
-          <MainNav />
+          <MainNav onSearch={this.performSearch} />
           <Switch>
 
             <Route exact path='/' render={() => <PhotoContainer title='Search something' data={this.state.photos} />} />
