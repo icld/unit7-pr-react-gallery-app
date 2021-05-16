@@ -4,15 +4,11 @@ import PhotoCard from '../PhotoCard/PhotoCard';
 import NotFound from '../NotFound/NotFound'
 import './PhotoContainer.css'
 
+const PhotoContainer = props => {
 
-const PhotoContainer = () => {
-
-    return (
-
-        {(props) => {
-    const results = photos;
+    const results = props.data;
     let photos;
-    const title = photos.title
+    const title = props.title
 
 
     if (results.length > 0) {
@@ -29,17 +25,6 @@ const PhotoContainer = () => {
             </ul>
         </div>
     )
-}
-
-            }
-
-        </Consumer >
-    )
-
-
-
-
-
 
 }
 
