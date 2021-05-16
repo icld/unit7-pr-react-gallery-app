@@ -27,8 +27,9 @@ export default class App extends Component {
       dogs: [],
       buzzards: [],
       computers: [],
-      query: ''
-      // loading: true
+      query: '',
+      loading: true
+
     }
   }
 
@@ -89,7 +90,8 @@ export default class App extends Component {
       .then(response => {
         this.setState({
           photos: response.data.photos.photo,
-          query: query
+          query: query,
+          loading: false
         })
       })
       .catch(error => {
@@ -98,17 +100,28 @@ export default class App extends Component {
   }
 
 
+
+  // handlePerformSearch = () => { }
+
   render() {
     return (
       <BrowserRouter>
 
         <div className="container" >
           <SearchForm onSearch={this.performSearch} />
-          <MainNav onSearch={this.performSearch} />
+          <MainNav />
+
           <Switch>
 
             <Route exact path='/' render={() => <PhotoContainer title='Search something' data={this.state.photos} />} />
-            <Route path='/search/:query' render={() => <PhotoContainer title={this.state.query} data={this.state.photos} />} />
+            <Route path='/search/:searchText' render={(props) => {
+              this.performSearch(props.match.params.searchText);
+              if (this.state.query !== props.match.params.searchText) {
+                return <h1>looading... </h1>
+              } else {
+                return <PhotoContainer loading={this.state.loading} title={this.state.query} query={this.state.query} data={this.state.photos} />
+              }
+            }} />
             <Route exact path='/cats' render={() => <PhotoContainer title='cats' data={this.state.cats} />} />
             <Route exact path='/dogs' render={() => <PhotoContainer title='dogs' data={this.state.dogs} />} />
             <Route exact path='/buzzards' render={() => <PhotoContainer title='buzzards' data={this.state.buzzards} />} />
@@ -116,7 +129,7 @@ export default class App extends Component {
             <Route component={NotFound} />
 
           </Switch>
-          {/* <PhotoContainer data={this.state.photos} /> */}
+
         </div>
 
       </BrowserRouter>
