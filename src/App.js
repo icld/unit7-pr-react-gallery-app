@@ -12,6 +12,7 @@ import apiKey from './Components/config.js'
 // App Components
 import MainNav from './Components/MainNav/MainNav';
 import SearchForm from './Components/SearchForm/SearchForm';
+import Home from './Components/Home/Home';
 import PhotoContainer from './Components/PhotoContainer/PhotoContainer';
 import NotFound from './Components/NotFound/NotFound.js';
 
@@ -101,7 +102,9 @@ export default class App extends Component {
 
 
 
-  // handlePerformSearch = () => { }
+  handlePerformSearch = (props) => {
+    this.performSearch(props.match.params.searchText)
+  }
 
   render() {
     return (
@@ -113,15 +116,8 @@ export default class App extends Component {
 
           <Switch>
 
-            <Route exact path='/' render={() => <PhotoContainer title='Search something' data={this.state.photos} />} />
-            <Route path='/search/:searchText' render={(props) => {
-              this.performSearch(props.match.params.searchText);
-              if (this.state.query !== props.match.params.searchText) {
-                return <h1>looading... </h1>
-              } else {
-                return <PhotoContainer loading={this.state.loading} title={this.state.query} query={this.state.query} data={this.state.photos} />
-              }
-            }} />
+            <Route exact path='/' component={Home} />
+            <Route path='/search/:searchText' render={(props) => <PhotoContainer onSearch={this.performSearch} loading={this.state.loading} title={this.state.query} query={props.match.params.searchText} data={this.state.photos} />} />
             <Route exact path='/cats' render={() => <PhotoContainer title='cats' data={this.state.cats} />} />
             <Route exact path='/dogs' render={() => <PhotoContainer title='dogs' data={this.state.dogs} />} />
             <Route exact path='/buzzards' render={() => <PhotoContainer title='buzzards' data={this.state.buzzards} />} />

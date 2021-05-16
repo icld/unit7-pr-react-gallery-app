@@ -6,16 +6,28 @@ import './PhotoContainer.css'
 
 const PhotoContainer = props => {
 
+
+
+
     const results = props.data;
     let photos;
-    const title = props.title
+    let title = props.title
+    const searchQuery = props.query
+
+    if (title !== searchQuery) {
+        props.onSearch(searchQuery);
+        title = searchQuery
+    }
 
 
-    if (results.length > 0) {
+    if (title !== searchQuery && props.loading) {
+        photos = <p>loading...</p>
+    } else if (results.length > 0) {
         photos = results.map(photo =>
             <PhotoCard server={photo.server} secret={photo.secret} id={photo.id} key={photo.id} />
         )
-    } else photos = <NotFound />
+    } else
+        photos = <NotFound />
 
     return (
         <div className="photo-container">
