@@ -26,7 +26,8 @@ export default class App extends Component {
       cats: [],
       dogs: [],
       buzzards: [],
-      computers: []
+      computers: [],
+      query: ''
       // loading: true
     }
   }
@@ -44,7 +45,8 @@ export default class App extends Component {
   `)
       .then(response => {
         this.setState({
-          cats: response.data.photos.photo
+          cats: response.data.photos.photo,
+          query: 'cats'
         })
       })
   }
@@ -54,7 +56,8 @@ export default class App extends Component {
   `)
       .then(response => {
         this.setState({
-          computers: response.data.photos.photo
+          computers: response.data.photos.photo,
+          query: 'computers'
         })
       })
   }
@@ -63,7 +66,8 @@ export default class App extends Component {
   `)
       .then(response => {
         this.setState({
-          buzzards: response.data.photos.photo
+          buzzards: response.data.photos.photo,
+          query: 'buzzards'
         })
       })
   }
@@ -73,7 +77,8 @@ export default class App extends Component {
   `)
       .then(response => {
         this.setState({
-          dogs: response.data.photos.photo
+          dogs: response.data.photos.photo,
+          query: 'dogs'
         })
       })
   }
@@ -83,7 +88,8 @@ export default class App extends Component {
   `)
       .then(response => {
         this.setState({
-          photos: response.data.photos.photo
+          photos: response.data.photos.photo,
+          query: query
         })
       })
       .catch(error => {
@@ -102,7 +108,7 @@ export default class App extends Component {
           <Switch>
 
             <Route exact path='/' render={() => <PhotoContainer title='Search something' data={this.state.photos} />} />
-            <Route path='/search/:query' render={() => <PhotoContainer data={this.state.photos} />} />
+            <Route path='/search/:query' render={() => <PhotoContainer title={this.state.query} data={this.state.photos} />} />
             <Route exact path='/cats' render={() => <PhotoContainer title='cats' data={this.state.cats} />} />
             <Route exact path='/dogs' render={() => <PhotoContainer title='dogs' data={this.state.dogs} />} />
             <Route exact path='/buzzards' render={() => <PhotoContainer title='buzzards' data={this.state.buzzards} />} />

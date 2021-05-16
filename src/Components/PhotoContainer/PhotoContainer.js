@@ -19,7 +19,7 @@ const PhotoContainer = props => {
 
     return (
         <div className="photo-container">
-            <h2>{title}</h2>
+            <h2>Show your search results for <br /> <strong>{title}</strong></h2>
             <ul>
                 {photos}
             </ul>
