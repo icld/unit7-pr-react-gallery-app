@@ -25,8 +25,8 @@ const PhotoContainer = () => {
         <div className="photo-container">
             <h2>Show your search results for <br /> <strong>{title}</strong></h2>
             <ul>
-                {photos\s}
-                        </ul>
+                {photos}
+            </ul>
         </div>
     )
 }
