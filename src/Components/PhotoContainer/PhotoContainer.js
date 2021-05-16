@@ -4,11 +4,15 @@ import PhotoCard from '../PhotoCard/PhotoCard';
 import NotFound from '../NotFound/NotFound'
 import './PhotoContainer.css'
 
-const PhotoContainer = props => {
 
-    const results = props.data;
+const PhotoContainer = () => {
+
+    return (
+
+        {(props) => {
+    const results = photos;
     let photos;
-    const title = props.title
+    const title = photos.title
 
 
     if (results.length > 0) {
@@ -21,10 +25,21 @@ const PhotoContainer = props => {
         <div className="photo-container">
             <h2>Show your search results for <br /> <strong>{title}</strong></h2>
             <ul>
-                {photos}
-            </ul>
+                {photos\s}
+                        </ul>
         </div>
     )
+}
+
+            }
+
+        </Consumer >
+    )
+
+
+
+
+
 
 }
 
