@@ -118,10 +118,10 @@ export default class App extends Component {
 
             <Route exact path='/' component={Home} />
             <Route path='/search/:searchText' render={(props) => <PhotoContainer onSearch={this.performSearch} loading={this.state.loading} title={this.state.query} query={props.match.params.searchText} data={this.state.photos} />} />
-            <Route exact path='/cats' render={() => <PhotoContainer title='cats' data={this.state.cats} />} />
-            <Route exact path='/dogs' render={() => <PhotoContainer title='dogs' data={this.state.dogs} />} />
-            <Route exact path='/buzzards' render={() => <PhotoContainer title='buzzards' data={this.state.buzzards} />} />
-            <Route exact path='/computers' render={() => <PhotoContainer title='computers' data={this.state.computers} />} />
+            <Route exact path='/cats' render={(props) => <PhotoContainer onSearch={this.performSearch} title='cats' query={'cats'} data={this.state.cats} />} />
+            <Route exact path='/dogs' render={(props) => <PhotoContainer onSearch={this.performSearch} title='dogs' query={'dogs'} data={this.state.dogs} />} />
+            <Route exact path='/buzzards' render={(props) => <PhotoContainer onSearch={this.performSearch} title='buzzards' query={'buzzards'} data={this.state.buzzards} />} />
+            <Route exact path='/computers' render={(props) => <PhotoContainer onSearch={this.performSearch} title='computers' query={'computers'} data={this.state.computers} />} />
             <Route component={NotFound} />
 
           </Switch>
