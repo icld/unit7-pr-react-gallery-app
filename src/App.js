@@ -14,7 +14,7 @@ import MainNav from './Components/MainNav/MainNav';
 import SearchForm from './Components/SearchForm/SearchForm';
 import Home from './Components/Home/Home';
 import PhotoContainer from './Components/PhotoContainer/PhotoContainer';
-import NotFound from './Components/NotFound/NotFound.js';
+import FourOhFour from './Components/FourOhFour/FourOhFour.js';
 
 
 
@@ -48,7 +48,8 @@ export default class App extends Component {
       .then(response => {
         this.setState({
           cats: response.data.photos.photo,
-          query: 'cats'
+          query: 'cats',
+
         })
       })
   }
@@ -122,7 +123,7 @@ export default class App extends Component {
             <Route exact path='/dogs' render={(props) => <PhotoContainer onSearch={this.performSearch} title='dogs' query={'dogs'} data={this.state.dogs} />} />
             <Route exact path='/buzzards' render={(props) => <PhotoContainer onSearch={this.performSearch} title='buzzards' query={'buzzards'} data={this.state.buzzards} />} />
             <Route exact path='/computers' render={(props) => <PhotoContainer onSearch={this.performSearch} title='computers' query={'computers'} data={this.state.computers} />} />
-            <Route component={NotFound} />
+            <Route component={FourOhFour} />
 
           </Switch>
 
