@@ -2,7 +2,11 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <h1>Search Something!</h1>
+        <div>
+            <h1> Search Something!</h1>
+            <p>This app uses the Flickr Api to search for photos of whatever you want to see! <br /> Try it in the search bar.</p>
+        </div>
+
     )
 
 }

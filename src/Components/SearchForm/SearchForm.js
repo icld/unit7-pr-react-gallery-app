@@ -7,7 +7,8 @@ import './SearchForm.css'
 class SearchForm extends Component {
 
     state = {
-        searchText: ''
+        searchText: '',
+        headerTitle: 'Just Another Photo Search App'
     }
 
     onSearchChange = e => {
@@ -24,10 +25,21 @@ class SearchForm extends Component {
         e.currentTarget.reset()
     }
 
+    handleTitleEnter = e => {
+        this.setState({ headerTitle: 'Go Home!' })
+
+
+
+
+    }
+    handleTitleLeave = e => {
+        this.setState({ headerTitle: 'Just Another Photo Search App' })
+    }
+
     render() {
         return (
             <div className="search-header">
-                <NavLink to='/'>A Boring Photo Search App</NavLink>
+                <NavLink className='header-title' to='/' onMouseEnter={this.handleTitleEnter} onMouseLeave={this.handleTitleLeave}>{this.state.headerTitle}</NavLink>
                 <form className="search-form"
                     onSubmit={this.handleSubmit}>
                     <input type="search"
