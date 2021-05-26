@@ -1,46 +1,45 @@
-import React from 'react';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import PhotoCard from "../PhotoCard/PhotoCard";
+import NotFound from "../NotFound/NotFound";
+import "./PhotoContainer.css";
 
-import PhotoCard from '../PhotoCard/PhotoCard';
-import NotFound from '../NotFound/NotFound'
-import './PhotoContainer.css'
-import { Consumer } from '../Context';
+const PhotoContainer = (props) => {
+  const results = props.data;
+  let title = props.title;
+  const searchQuery = props.query;
+  const loading = props.isLoading;
 
-const PhotoContainer = () => {
+  if (title !== searchQuery) {
+    props.onSearch(searchQuery);
+    title = searchQuery;
+  }
 
-    return (
-        <Consumer>
-            {({ photos }) => {
-                const results = photos;
-                let photoss;
-                const title = photos.title
+  let photos = results.map((photo) => (
+    <PhotoCard
+      server={photo.server}
+      secret={photo.secret}
+      id={photo.id}
+      key={photo.id}
+    />
+  ));
 
+  console.log(loading);
 
-                if (results.length > 0) {
-                    photoss = results.map(photo =>
-                        <PhotoCard server={photo.server} secret={photo.secret} id={photo.id} key={photo.id} />
-                    )
-                } else photos = <NotFound />
+  return props.isLoading ? (
+    <h2>loading...</h2>
+  ) : props.loading && results.length < 1 ? (
+    <NotFound />
+  ) : (
+    <div className="photo-container">
+      <div>
+        <h2>
+          Showing your search results for <br /> <strong>{title}</strong>
+        </h2>
+        <ul> {photos}</ul>
+      </div>
+    </div>
+  );
+};
 
-                return (
-                    <div className="photo-container">
-                        <h2>{title}</h2>
-                        <ul>
-                            {photoss}
-                        </ul>
-                    </div>
-                )
-            }
-
-            }
-
-        </Consumer>
-    )
-
-
-
-
-
-
-}
-
-export default PhotoContainer;
+export default withRouter(PhotoContainer);
