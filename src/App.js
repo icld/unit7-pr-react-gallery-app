@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import {
-  BrowserRouter,
-  Route,
-  Switch
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import apiKey from './Components/config.js'
+import apiKey from "./Components/config.js";
 
 // App Components
-import MainNav from './Components/MainNav/MainNav';
-import SearchForm from './Components/SearchForm/SearchForm';
-import Home from './Components/Home/Home';
-import PhotoContainer from './Components/PhotoContainer/PhotoContainer';
-import FourOhFour from './Components/FourOhFour/FourOhFour.js';
-
-
+import MainNav from "./Components/MainNav/MainNav";
+import SearchForm from "./Components/SearchForm/SearchForm";
+import Home from "./Components/Home/Home";
+import PhotoContainer from "./Components/PhotoContainer/PhotoContainer";
+import FourOhFour from "./Components/FourOhFour/FourOhFour.js";
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -28,111 +21,176 @@ export default class App extends Component {
       dogs: [],
       buzzards: [],
       computers: [],
-      query: '',
-      loading: true
-
-    }
+      query: "",
+      loading: true,
+    };
   }
 
   componentDidMount() {
     this.performSearch();
     this.getCats();
     this.getBuzzards();
-    this.getDogs()
-    this.getComputers()
+    this.getDogs();
+    this.getComputers();
   }
 
   getCats = () => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=24&format=json&nojsoncallback=1
-  `)
-      .then(response => {
+    axios
+      .get(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=24&format=json&nojsoncallback=1
+  `
+      )
+      .then((response) => {
         this.setState({
           cats: response.data.photos.photo,
-          query: 'cats',
-
-        })
-      })
-  }
+          query: "cats",
+        });
+      });
+  };
 
   getComputers = () => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=computers&per_page=24&format=json&nojsoncallback=1
-  `)
-      .then(response => {
+    axios
+      .get(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=computers&per_page=24&format=json&nojsoncallback=1
+  `
+      )
+      .then((response) => {
         this.setState({
           computers: response.data.photos.photo,
-          query: 'computers'
-        })
-      })
-  }
+          query: "computers",
+        });
+      });
+  };
   getBuzzards = () => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=buzzards&per_page=24&format=json&nojsoncallback=1
-  `)
-      .then(response => {
+    axios
+      .get(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=buzzards&per_page=24&format=json&nojsoncallback=1
+  `
+      )
+      .then((response) => {
         this.setState({
           buzzards: response.data.photos.photo,
-          query: 'buzzards'
-        })
-      })
-  }
+          query: "buzzards",
+        });
+      });
+  };
 
   getDogs = () => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dogs&per_page=24&format=json&nojsoncallback=1
-  `)
-      .then(response => {
+    axios
+      .get(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dogs&per_page=24&format=json&nojsoncallback=1
+  `
+      )
+      .then((response) => {
         this.setState({
           dogs: response.data.photos.photo,
-          query: 'dogs'
-        })
-      })
-  }
+          query: "dogs",
+        });
+      });
+  };
 
-  performSearch = (query = 'funny cats') => {
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1
-  `)
-      .then(response => {
+  performSearch = (query = "funny cats") => {
+    axios
+      .get(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1
+  `
+      )
+      .then((response) => {
         this.setState({
           photos: response.data.photos.photo,
           query: query,
-          loading: false
-        })
+          loading: false,
+        });
       })
-      .catch(error => {
-        console.log('Error fetching and parsing data', error);
+      .catch((error) => {
+        console.log("Error fetching and parsing data", error);
       });
-  }
-
-
+  };
 
   handlePerformSearch = (props) => {
-    this.performSearch(props.match.params.searchText)
-  }
+    this.performSearch(props.match.params.searchText);
+  };
 
   render() {
     return (
       <BrowserRouter>
-
-        <div className="container" >
-          <SearchForm onSearch={this.performSearch} />
+        <div className="container">
+          <SearchForm
+            onSearch={this.performSearch}
+            isLoading={this.state.loading}
+          />
           <MainNav />
 
           <Switch>
-
-            <Route exact path='/' component={Home} />
-            <Route path='/search/:searchText' render={(props) => <PhotoContainer onSearch={this.performSearch} loading={this.state.loading} title={this.state.query} query={props.match.params.searchText} data={this.state.photos} />} />
-            <Route exact path='/cats' render={(props) => <PhotoContainer onSearch={this.performSearch} title='cats' query={'cats'} data={this.state.cats} />} />
-            <Route exact path='/dogs' render={(props) => <PhotoContainer onSearch={this.performSearch} title='dogs' query={'dogs'} data={this.state.dogs} />} />
-            <Route exact path='/buzzards' render={(props) => <PhotoContainer onSearch={this.performSearch} title='buzzards' query={'buzzards'} data={this.state.buzzards} />} />
-            <Route exact path='/computers' render={(props) => <PhotoContainer onSearch={this.performSearch} title='computers' query={'computers'} data={this.state.computers} />} />
+            <Route
+              path="/search/:searchText"
+              render={(props) => (
+                <PhotoContainer
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title={this.state.query}
+                  query={props.match.params.searchText}
+                  data={this.state.photos}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/cats"
+              render={(props) => (
+                <PhotoContainer
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title="cats"
+                  query={"cats"}
+                  data={this.state.cats}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/dogs"
+              render={(props) => (
+                <PhotoContainer
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title="dogs"
+                  query={"dogs"}
+                  data={this.state.dogs}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/buzzards"
+              render={(props) => (
+                <PhotoContainer
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title="buzzards"
+                  query={"buzzards"}
+                  data={this.state.buzzards}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/computers"
+              render={(props) => (
+                <PhotoContainer
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title="computers"
+                  query={"computers"}
+                  data={this.state.computers}
+                />
+              )}
+            />
+            <Route exact path="/" component={Home} />
             <Route component={FourOhFour} />
-
           </Switch>
-
         </div>
-
       </BrowserRouter>
-
     );
   }
 }
-
-
