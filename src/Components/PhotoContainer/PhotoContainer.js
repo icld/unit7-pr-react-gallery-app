@@ -28,7 +28,7 @@ const PhotoContainer = (props) => {
 
   return props.isLoading ? (
     <h2>loading...</h2>
-  ) : props.loading && results.length < 1 ? (
+  ) : results.length < 1 ? (
     <NotFound />
   ) : (
     <div className="photo-container">
