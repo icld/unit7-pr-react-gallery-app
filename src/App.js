@@ -32,6 +32,7 @@ export default class App extends Component {
     this.getBuzzards();
     this.getDogs();
     this.getComputers();
+    this.setState(Object.assign({ loading: true }));
   }
 
   getCats = () => {
@@ -111,6 +112,10 @@ export default class App extends Component {
     this.performSearch(props.match.params.searchText);
   };
 
+  handleChange = () => {
+    this.setState({ loading: true });
+  };
+
   render() {
     return (
       <BrowserRouter>
@@ -118,6 +123,7 @@ export default class App extends Component {
           <SearchForm
             onSearch={this.performSearch}
             isLoading={this.state.loading}
+            change={this.handleChange}
           />
           <MainNav />
 
@@ -186,7 +192,19 @@ export default class App extends Component {
                 />
               )}
             />
-            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Home
+                  onSearch={this.performSearch}
+                  isLoading={this.state.loading}
+                  title="dogs"
+                  query={"dogs"}
+                  data={this.state.dogs}
+                />
+              )}
+            />
             <Route component={FourOhFour} />
           </Switch>
         </div>

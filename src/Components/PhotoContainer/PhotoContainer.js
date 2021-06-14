@@ -30,6 +30,12 @@ const PhotoContainer = (props) => {
     <h2>loading...</h2>
   ) : results.length < 1 ? (
     <NotFound />
+  ) : !title ? (
+    <div className="photo-container">
+      <div>
+        <ul> {photos}</ul>
+      </div>
+    </div>
   ) : (
     <div className="photo-container">
       <div>
